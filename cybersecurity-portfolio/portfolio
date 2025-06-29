@@ -1,0 +1,117 @@
+import os
+
+# === Folder structure ===
+folders = [
+    "Cybersecurity_Tools",
+    "Certifications",
+    "Portfolio_Projects",
+    "site"
+]
+
+# === Files content ===
+files = {
+    "README.md": """
+# Nate Owusu Cybersecurity Portfolio
+
+This portfolio showcases my cybersecurity skills, tools, and projects.
+
+## Sections
+- Python tools for security tasks
+- Certifications
+- Project documentation
+- Simple site for GitHub Pages
+""",
+
+    "site/index.html": """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nate Owusu Cybersecurity Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Nate Owusu Cybersecurity Portfolio</h1>
+    <p>Projects, tools, and certifications</p>
+  </header>
+  <main>
+    <ul>
+      <li>NIST CSF Risk Assessment</li>
+      <li>OWASP Top 10 Demo</li>
+      <li>Linux Permissions Demo</li>
+      <li>SQL Query Filter Demo</li>
+      <li>Python Security Tools</li>
+    </ul>
+  </main>
+</body>
+</html>
+""",
+
+    "site/style.css": """
+body { font-family: sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+header { background: #333; color: #fff; padding: 1em; text-align: center; }
+main { padding: 1em; }
+""",
+
+    "Cybersecurity_Tools/port_scanner.py": """
+import socket
+
+def scan_ports(host, ports):
+    print(f"Scanning {host}...")
+    for port in ports:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            result = s.connect_ex((host, port))
+            if result == 0:
+                print(f"Port {port} is open")
+            else:
+                print(f"Port {port} is closed")
+
+if __name__ == "__main__":
+    scan_ports("127.0.0.1", [22, 80, 443])
+""",
+
+    "Cybersecurity_Tools/log_analyzer.py": """
+def analyze_logs(filepath):
+    with open(filepath) as f:
+        for line in f:
+            if "fail" in line.lower():
+                print(f"Alert: {line.strip()}")
+
+if __name__ == "__main__":
+    analyze_logs("example.log")
+""",
+
+    "Cybersecurity_Tools/hash_generator.py": """
+import hashlib
+
+def generate_sha256(filepath):
+    sha = hashlib.sha256()
+    with open(filepath, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            sha.update(chunk)
+    print(f"SHA256: {sha.hexdigest()}")
+
+if __name__ == "__main__":
+    generate_sha256("example.txt")
+""",
+
+    "Portfolio_Projects/NIST_CSF_Risk_Assessment.md": "# NIST CSF Risk Assessment\nSummary of risk findings and recommendations.",
+    "Portfolio_Projects/OWASP_Top10_Demo.md": "# OWASP Top 10 Demo\nSimulated SQLi attack and defense.",
+    "Portfolio_Projects/Linux_Permissions_Demo.md": "# Linux Permissions Demo\nSecured files using chmod, chown.",
+    "Portfolio_Projects/SQL_Query_Filter_Demo.md": "# SQL Query Filter Demo\nApplied WHERE clauses securely.",
+    "Portfolio_Projects/Vulnerability_Report.md": "# Vulnerability Report\nIdentified server weaknesses.",
+    "Certifications/Coursera_Cybersecurity_Certificate.txt": "Coursera Cybersecurity Professional Certificate placeholder."
+}
+
+# === Create folders ===
+for folder in folders:
+    os.makedirs(folder, exist_ok=True)
+
+# === Create files ===
+for filepath, content in files.items():
+    with open(filepath.strip(), "w") as f:
+        f.write(content.strip())
+
+print("✅ Portfolio structure created successfully!")
